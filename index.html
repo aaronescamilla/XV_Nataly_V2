@@ -222,7 +222,7 @@
             transform: translateY(0);
         }
 
-        /* VIDEO DE FONDO - NUEVO ESTILO */
+        /* VIDEO DE FONDO - SOLUCIÓN COMPATIBLE */
         .background-video-container {
             position: fixed;
             top: 0;
@@ -237,7 +237,49 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            /* Solución universal para navegadores */
             pointer-events: none;
+            /* Asegurar que no aparezcan controles */
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            /* Forzar aceleración por hardware */
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+
+        /* Ocultar completamente cualquier control nativo de video */
+        .background-video::-webkit-media-controls {
+            display: none !important;
+        }
+        
+        .background-video::-webkit-media-controls-panel {
+            display: none !important;
+        }
+        
+        .background-video::-webkit-media-controls-play-button {
+            display: none !important;
+        }
+        
+        .background-video::-webkit-media-controls-start-playback-button {
+            display: none !important;
+        }
+
+        /* Fallback para navegadores que no soportan video */
+        .no-video .background-video-container {
+            display: none;
+        }
+        
+        .no-video .familiares, 
+        .no-video .fecha, 
+        .no-video .frase, 
+        .no-video .conteo, 
+        .no-video .datos, 
+        .no-video .fotos-memorables {
+            background-image: url('./resources/images/background.webp');
         }
 
         .texto-animado {
@@ -275,6 +317,14 @@
             height: auto;
             margin-bottom: 20px;
             filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        /* Secciones con imagen de fondo (excepto portada) */
+        .familiares, .fecha, .frase, .conteo, .datos, .fotos-memorables {
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
         }
 
         .familiares::before, .fecha::before, .frase::before, .conteo::before, .datos::before, .fotos-memorables::before {
@@ -996,8 +1046,10 @@
 <body>
     <!-- Video de fondo fijo -->
     <div class="background-video-container">
-        <video class="background-video" autoplay muted loop playsinline>
+        <video class="background-video" id="backgroundVideo" muted loop playsinline webkit-playsinline preload="auto">
             <source src="./resources/videos/background.webm" type="video/webm">
+            <!-- Fallback MP4 para navegadores que no soportan WebM -->
+            <source src="./resources/videos/background.mp4" type="video/mp4">
             <!-- Fallback en caso de que el video no se cargue -->
             <img src="./resources/images/background.webp" alt="Fondo de respaldo" style="width: 100%; height: 100%; object-fit: cover;">
         </video>
@@ -1172,8 +1224,10 @@
            
             <div class="carrusel">
                 <div class="carrusel-inner">
-                    <div class="carrusel-item"><img src="./resources/images/quinceanera_.webp" alt="Imagen 1"></div>
-                    <div class="carrusel-item"><img src="./resources/images/recuadro_quinceanera.webp" alt="Imagen 2"></div>
+                    <div class="carrusel-item"><img src="./resources/images/1.webp" alt="Imagen 1"></div>
+                    <div class="carrusel-item"><img src="./resources/images/2.webp" alt="Imagen 2"></div>
+                    <div class="carrusel-item"><img src="./resources/images/3.webp" alt="Imagen 3"></div>
+                    <div class="carrusel-item"><img src="./resources/images/4.webp" alt="Imagen 4"></div>
                 </div>
             </div>
         </section>
@@ -1227,6 +1281,18 @@
     </div>
 
     <script>
+        // Detectar si el navegador soporta video
+        function supportsVideo() {
+            const video = document.createElement('video');
+            return !!video.canPlayType;
+        }
+
+        // Detectar si el navegador puede reproducir WebM
+        function supportsWebM() {
+            const video = document.createElement('video');
+            return !!video.canPlayType && video.canPlayType('video/webm; codecs="vp8, vorbis"') !== "";
+        }
+
         // Función para manejar errores de carga de imagen
         function handleImageError(img) {
             console.log('La imagen del sobre no se pudo cargar, mostrando respaldo');
@@ -1248,7 +1314,7 @@
                     './resources/images/quinceanera.webp',
                     './resources/images/background.webp',
                     './resources/sounds/sound.ogg',
-                    './resources/videos/flores1.webm' // Añadido el video a la precarga
+                    './resources/videos/backgrpund.webm'
                 ];
                
                 let loaded = 0;
@@ -1268,7 +1334,10 @@
                         element = document.createElement('audio');
                     } else if (isVideo) {
                         element = document.createElement('video');
-                        element.muted = true; // Para precarga silenciosa
+                        element.muted = true;
+                        element.setAttribute('playsinline', '');
+                        element.setAttribute('webkit-playsinline', '');
+                        element.preload = 'auto';
                     } else {
                         element = new Image();
                     }
@@ -1280,12 +1349,7 @@
                         }
                     };
                    
-                    if (isAudio || isVideo) {
-                        element.src = src;
-                        element.preload = 'auto';
-                    } else {
-                        element.src = src;
-                    }
+                    element.src = src;
                 });
             });
         }
@@ -1295,6 +1359,7 @@
             const invitationEnvelope = document.getElementById('invitationEnvelope');
             const invitationContent = document.getElementById('invitationContent');
             const audioPlayer = document.getElementById('audio-player');
+            const backgroundVideo = document.getElementById('backgroundVideo');
             const playPauseBtn = document.getElementById('play-pause');
             const playIcon = playPauseBtn.querySelector('i');
            
@@ -1331,6 +1396,40 @@
                 invitationContent.classList.add('show');
                 // Iniciar animaciones de scroll
                 checkVisibility();
+               
+                // SOLUCIÓN UNIVERSAL PARA VIDEO
+                const playVideo = () => {
+                    // Verificar si el video está listo
+                    if (backgroundVideo.readyState >= 2) {
+                        backgroundVideo.play().then(() => {
+                            console.log('Video de fondo reproducido correctamente');
+                        }).catch(error => {
+                            console.log('Error al reproducir video de fondo: ', error);
+                            // Si falla, usar imagen de fondo
+                            document.body.classList.add('no-video');
+                        });
+                    } else {
+                        // Esperar a que el video esté listo
+                        backgroundVideo.addEventListener('loadeddata', function() {
+                            backgroundVideo.play().then(() => {
+                                console.log('Video de fondo reproducido correctamente');
+                            }).catch(error => {
+                                console.log('Error al reproducir video de fondo: ', error);
+                                document.body.classList.add('no-video');
+                            });
+                        });
+                        
+                        // Timeout de seguridad
+                        setTimeout(() => {
+                            if (backgroundVideo.paused) {
+                                document.body.classList.add('no-video');
+                            }
+                        }, 3000);
+                    }
+                };
+                
+                // Reproducir el video
+                playVideo();
                
                 // REPRODUCIR AUDIO
                 audioPlayer.play().then(() => {
