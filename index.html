@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -343,53 +343,48 @@
             z-index: 1;
         }
 
-        /* Datos de familiares - CENTRADO EN ESCRITORIO */
+        /* Datos de familiares - ESTRUCTURA CORREGIDA CON LÍNEAS DIVISORIAS */
         .familiares {
             padding: 80px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 40px;
         }
 
         .familiar-item {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            margin-bottom: 40px;
             width: 100%;
-            justify-content: center;
-            flex-wrap: wrap;
-            max-width: 1200px;
+            max-width: 800px;
+        }
+
+        .familiar-divisor {
+            width: clamp(150px, 40vw, 250px);
+            height: auto;
+            margin-bottom: 20px;
+            object-fit: contain;
         }
 
         .familiar-text {
-            padding: 0 20px;
             text-align: center;
-            flex: 1;
-            min-width: 250px;
-            max-width: 600px;
+            width: 100%;
         }
 
         .familiar-text h3 {
             font-family: var(--fuente-montserrat);
             color: var(--azul);
-            font-size: clamp(8px, 4.8vw, 38.4px);
-            margin-bottom: 5px;
+            font-size: clamp(24px, 4.8vw, 38px);
+            margin-bottom: 15px;
         }
 
         .familiar-text p {
             font-family: var(--fuente-ephesis);
             color: #555;
-            font-size: 36px;
-            margin-bottom: 5px;
-        }
-
-        /* CORRECCIÓN: Imágenes divisorias reducidas 50% y márgenes ajustados */
-        .familiar-img {
-            width: clamp(100px, 75vw, 200px);
-            height: clamp(25px, 18.75vw, 50px);
-            object-fit: contain;
-            margin: 0 10px;
+            font-size: clamp(28px, 5vw, 36px);
+            margin-bottom: 8px;
         }
 
         /* Fecha de cumpleaños */
@@ -644,7 +639,7 @@
             background-position: center;
         }
 
-        /* Botón de confirmación de asistencia */
+        /* Botón de confirmación de asistencia - TAMAÑO AUMENTADO */
         .confirmacion-asistencia {
             text-align: center;
             margin-top: 40px;
@@ -654,18 +649,19 @@
         .confirmacion-asistencia p {
             font-family: var(--fuente-montserrat);
             color: #333;
-            font-size: clamp(16px, 3vw, 18px);
+            font-size: clamp(18px, 4vw, 22px); /* Tamaño aumentado */
             margin-bottom: 15px;
+            font-weight: 500; /* Peso de fuente ligeramente mayor */
         }
 
         .btn-confirmar-asistencia {
             background-color: transparent;
             color: #115D80;
             border: 2px solid #115D80;
-            padding: 10px 20px;
+            padding: 12px 25px; /* Padding aumentado */
             border-radius: 25px;
             font-family: var(--fuente-montserrat);
-            font-size: 16px;
+            font-size: 18px; /* Tamaño de fuente aumentado */
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -731,10 +727,12 @@
             width: 100%;
         }
 
-        .hashtags-linea {
+        /* HASHTAGS EN LÍNEAS SEPARADAS CON ALINEACIÓN ESPECÍFICA */
+        .hashtags-container {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
+            gap: 10px;
             max-width: 600px;
             width: 100%;
             margin: 0 auto 15px;
@@ -744,21 +742,19 @@
             font-family: var(--fuente-michroma);
             color: var(--azul);
             font-size: clamp(16px, 3vw, 20px);
+            width: 100%;
         }
 
         .hashtag.izquierda {
             text-align: left;
-            flex: 1;
         }
 
         .hashtag.centro {
             text-align: center;
-            flex: 1;
         }
 
         .hashtag.derecha {
             text-align: right;
-            flex: 1;
         }
 
         .carrusel {
@@ -866,25 +862,22 @@
                 padding: 40px 15px;
             }
            
-            .familiar-item {
-                flex-direction: column;
-                margin-bottom: 30px;
-                width: 100%;
-                max-width: 100%;
+            .familiares {
+                padding: 60px 15px;
+                gap: 30px;
             }
            
-            .familiar-img {
-                margin: 15px 0;
-                width: clamp(100px, 40vw, 175px); /* Reducido 50% en móvil */
-                height: clamp(25px, 10vw, 44px); /* Reducido 50% en móvil */
+            .familiar-divisor {
+                width: clamp(120px, 35vw, 200px);
+                margin-bottom: 15px;
             }
            
             .familiar-text h3 {
-                font-size: clamp(26.88px, 4.8vw, 38.4px);
+                font-size: clamp(22px, 4.5vw, 32px);
             }
            
             .familiar-text p {
-                font-size: 40px;
+                font-size: clamp(24px, 4.5vw, 32px);
             }
            
             .invitacion-texto {
@@ -939,24 +932,20 @@
                 height: 180px;
             }
 
-            .hashtags-linea {
-                flex-direction: row; /* Mantener en fila en móvil */
-                gap: 5px;
+            /* Hashtags en móvil - cada uno en su propia línea con alineación específica */
+            .hashtags-container {
+                flex-direction: column;
+                gap: 10px;
             }
 
-            .hashtag {
-                text-align: center;
-            }
-           
-            /* Alineación específica para hashtags en móvil */
             .hashtag.izquierda {
                 text-align: left;
             }
-           
+
             .hashtag.centro {
                 text-align: center;
             }
-           
+
             .hashtag.derecha {
                 text-align: right;
             }
@@ -964,24 +953,27 @@
 
         @media (min-width: 769px) {
             /* CENTRADO MEJORADO para vista de escritorio en Datos de familiares */
+            .familiares {
+                gap: 50px;
+            }
+            
             .familiar-item {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin: 0 auto 40px;
-                width: 100%;
-                max-width: 1000px;
+                max-width: 800px;
             }
             
-            .familiar-text {
+            .familiar-divisor {
+                width: clamp(150px, 25vw, 250px);
+            }
+
+            /* Hashtags en escritorio - en línea horizontal */
+            .hashtags-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .hashtag {
                 text-align: center;
-                flex: none;
-                width: auto;
-                max-width: 500px;
-            }
-            
-            .familiar-img {
-                margin: 0 30px;
+                flex: 1;
             }
         }
 
@@ -990,16 +982,21 @@
                 padding: 30px 10px;
             }
            
+            .familiares {
+                padding: 40px 10px;
+                gap: 25px;
+            }
+           
             .familiar-text {
                 padding: 0 10px;
             }
            
             .familiar-text h3 {
-                font-size: clamp(25.92px, 5.04vw, 34.56px);
+                font-size: clamp(20px, 4.5vw, 28px);
             }
            
             .familiar-text p {
-                font-size: 36px;
+                font-size: clamp(22px, 4.5vw, 28px);
             }
            
             .invitacion-texto {
@@ -1086,13 +1083,13 @@
     <div class="invitation-content" id="invitationContent">
         <!-- Portada -->
         <section class="portada section-hidden">
-            <img src="./resources/images/nombre.png" alt="Natalia García Millán" class="nombre-imagen">
+            <img src="./resources/images/nombre.webp" alt="Natalia García Millán" class="nombre-imagen">
         </section>
 
-        <!-- Datos de familiares -->
+        <!-- Datos de familiares - ESTRUCTURA CORREGIDA CON LÍNEAS DIVISORIAS -->
         <section class="familiares section-hidden">
             <div class="familiar-item element-hidden">
-                <img src="./resources/images/divisor1.webp" alt="Flor decorativa" class="familiar-img">
+                <img src="./resources/images/divisor1.webp" alt="Flor decorativa" class="familiar-divisor">
                 <div class="familiar-text">
                     <h3>MI MADRE</h3>
                     <p><span class="texto-animado" data-delay="1000">Andrea Millán Hernández</span></p>
@@ -1100,7 +1097,7 @@
             </div>
            
             <div class="familiar-item element-hidden">
-                <img src="./resources/images/divisor1.webp" alt="Flor decorativa" class="familiar-img">
+                <img src="./resources/images/divisor1.webp" alt="Flor decorativa" class="familiar-divisor">
                 <div class="familiar-text">
                     <h3>MIS ABUELOS</h3>
                     <p><span class="texto-animado" data-delay="2000">Catalino Millán Hernández</span></p>
@@ -1109,7 +1106,7 @@
             </div>
            
             <div class="familiar-item element-hidden">
-                <img src="./resources/images/divisor1.webp" alt="Flor decorativa" class="familiar-img">
+                <img src="./resources/images/divisor1.webp" alt="Flor decorativa" class="familiar-divisor">
                 <div class="familiar-text">
                     <h3>MI MADRINA</h3>
                     <p><span class="texto-animado" data-delay="4000">Citlalli Torres Talavera</span></p>
@@ -1133,7 +1130,7 @@
             <div class="firma-Natalia">Natalia</div>
         </section>
 
-        <!-- Conteo regresivo -->
+        <!-- Conteo regresivo - CORREGIDO -->
         <section class="conteo section-hidden">
             <h2>¡¡Tan solo Faltan....</h2>
             <div class="contador">
@@ -1167,7 +1164,7 @@
                 <h3>Ceremonia</h3>
                 <p><strong>Parroquia de Santiago Apóstol</strong></p>
                 <p>Josefa Ortiz de Domínguez, Santiago Tianguistenco</p>
-                <p>4:00PM</p>
+                <p>13:00 HRS</p>
                
                 <div class="mapa-container">
                     <iframe
@@ -1188,7 +1185,7 @@
                 <h3>Fiesta</h3>
                 <p>Jardín La Cabaña</p>
                 <p>1ra Cda. de Catarino Gonzalez 7, Santiago Tianguistenco</p>
-                <p>6:00 PM</p>
+                <p>15:00 HRS</p>
                
                 <div class="mapa-container">
                     <iframe
@@ -1204,19 +1201,19 @@
                 </a>
             </div>
 
-            <!-- Confirmación de asistencia -->
+            <!-- Confirmación de asistencia - TEXTO AUMENTADO -->
             <div class="confirmacion-asistencia element-hidden">
                 <p>Confirma tu Asistencia <button class="btn-confirmar-asistencia">Aquí</button></p>
             </div>
         </section>
 
-        <!-- Fotos memorables (Hashtags + Galería) -->
+        <!-- Fotos memorables (Hashtags + Galería) - HASHTAGS CORREGIDOS -->
         <section class="fotos-memorables section-hidden">
             <h2>Fotos memorables</h2>
             <div class="texto-introductorio">
                 Gracias por ser parte de este dia tan especial. Toma una foto espectacular y súbela con los hashtags:
             </div>
-            <div class="hashtags-linea">
+            <div class="hashtags-container">
                 <div class="hashtag izquierda">#NataliaXV</div>
                 <div class="hashtag centro">#FiestaNatalia</div>
                 <div class="hashtag derecha">#XVNatalia</div>
@@ -1506,9 +1503,9 @@
                 elementObserver.observe(element);
             });
 
-            // Contador regresivo
+            // Contador regresivo - CORREGIDO
             function actualizarContador() {
-                const fechaObjetivo = new Date('February 21, 2026 16:00:00').getTime();
+                const fechaObjetivo = new Date('February 21, 2026 13:00:00').getTime();
                 const ahora = new Date().getTime();
                 const diferencia = fechaObjetivo - ahora;
 
@@ -1613,32 +1610,43 @@
                 modal.style.display = 'none';
             });
 
-            // AGREGADO: Función para crear evento en calendario
+            // AGREGADO: Función para crear evento en calendario - CORREGIDA CON RECORDATORIOS
             document.getElementById('btnAgendar').addEventListener('click', function() {
-                // Detalles del evento
-                const titulo = 'Cumpleaños de Natalia - Ceremonia';
-                const fecha = '2026-02-21T16:00:00'; // 21 de febrero 2026 a las 4:00pm
+                // Detalles del evento - CORREGIDO: 21 de febrero 2026 de 1:00 PM a 2:00 PM
+                const titulo = 'XV Años de Natalia - Ceremonia';
+                const fechaInicio = '2026-02-21T13:00:00'; // 21 de febrero 2026 a las 1:00 PM
+                const fechaFin = '2026-02-21T14:00:00'; // 21 de febrero 2026 a las 2:00 PM
                 const lugar = 'Parroquia de Santiago Apostol';
-               
-                // Crear URL para Google Calendar
-                const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(titulo)}&dates=20260221T220000Z/20260221T230000Z&details=Evento%20de%20XV%20años%20de%20Natalia&location=${encodeURIComponent(lugar)}`;
-               
-                // Crear URL para Outlook Calendar
-                const outlookCalendarUrl = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${encodeURIComponent(titulo)}&startdt=2026-02-21T16:00:00&enddt=2026-02-21T17:00:00&location=${encodeURIComponent(lugar)}&body=Evento%20de%20XV%20años%20de%20Natalia`;
-               
-                // Crear URL para Apple Calendar
+                const descripcion = 'Ceremonia de XV años de Natalia García Millán';
+                
+                // Fechas en formato UTC para Google Calendar
+                const fechaInicioUTC = '20260221T190000Z'; // 13:00 CST = 19:00 UTC
+                const fechaFinUTC = '20260221T200000Z'; // 14:00 CST = 20:00 UTC
+                
+                // Crear URL para Google Calendar - CORREGIDA CON RECORDATORIO
+                const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(titulo)}&dates=${fechaInicioUTC}/${fechaFinUTC}&details=${encodeURIComponent(descripcion)}&location=${encodeURIComponent(lugar)}&trp=true&reminder=1440`;
+                
+                // Crear URL para Outlook Calendar - CORREGIDA CON RECORDATORIO
+                const outlookCalendarUrl = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${encodeURIComponent(titulo)}&startdt=${fechaInicio}&enddt=${fechaFin}&location=${encodeURIComponent(lugar)}&body=${encodeURIComponent(descripcion)}&reminder=1440`;
+                
+                // Crear URL para Apple Calendar - CORREGIDA CON RECORDATORIO
                 const appleCalendarUrl = `data:text/calendar;charset=utf8,BEGIN:VCALENDAR
 VERSION:2.0
 BEGIN:VEVENT
 URL:${document.URL}
-DTSTART:20260221T220000Z
-DTEND:20260221T230000Z
+DTSTART:20260221T190000Z
+DTEND:20260221T200000Z
 SUMMARY:${titulo}
 LOCATION:${lugar}
-DESCRIPTION:Evento de XV años de Natalia
+DESCRIPTION:${descripcion}
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Recordatorio
+END:VALARM
 END:VEVENT
 END:VCALENDAR`;
-               
+                
                 // Crear un modal para seleccionar el calendario
                 const modalAgendar = document.createElement('div');
                 modalAgendar.style.cssText = `
@@ -1653,7 +1661,7 @@ END:VCALENDAR`;
                     justify-content: center;
                     align-items: center;
                 `;
-               
+                
                 const modalContenido = document.createElement('div');
                 modalContenido.style.cssText = `
                     background-color: white;
@@ -1663,7 +1671,7 @@ END:VCALENDAR`;
                     width: 90%;
                     text-align: center;
                 `;
-               
+                
                 modalContenido.innerHTML = `
                     <h3 style="margin-bottom: 20px; color: var(--azul);">Agendar en calendario</h3>
                     <p style="margin-bottom: 20px;">Selecciona tu calendario preferido:</p>
@@ -1674,10 +1682,10 @@ END:VCALENDAR`;
                         <button class="btn-confirmar-asistencia" onclick="this.parentElement.parentElement.parentElement.remove();">Cancelar</button>
                     </div>
                 `;
-               
+                
                 modalAgendar.appendChild(modalContenido);
                 document.body.appendChild(modalAgendar);
-               
+                
                 // Cerrar modal al hacer clic fuera
                 modalAgendar.addEventListener('click', function(e) {
                     if (e.target === modalAgendar) {
